@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FaUser } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaUser, FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/logo (2).png";
 import { useAuth } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -10,9 +10,13 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
-  console.log("This is the auth user", auth?.user);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [animateNavbar, setAnimateNavbar] = useState(false);
 
-  // Redirect logic
+  useEffect(() => {
+    setAnimateNavbar(true);
+  }, []);
+
   const redirectDashboard = (e) => {
     e.stopPropagation();
     if (auth?.user?.role === "admin") {
@@ -22,69 +26,67 @@ const Navbar = () => {
     }
   };
 
-  // Handle dropdown toggle
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
-  // Close dropdown when mouse leaves
   const closeDropdown = () => {
     setIsDropdownOpen(false);
   };
 
-  // Handle logout logic
   const handleLogout = () => {
-    setAuth({
-      ...auth,
-      user: null,
-      token: "",
-    });
+    setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
     toast.success("Logout Successfully");
     navigate("/");
   };
 
   return (
-    <nav className="flex items-center justify-between p-4">
-      {/* Brand Logo and Name */}
-      <div className="flex items-center space-x-2">
-        <img src={logo} alt="logo" className="ml-[7rem]" />
+    <nav
+      className={`flex items-center justify-between p-4 shadow-md bg-white transition-all duration-700 ease-out transform ${
+        animateNavbar ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
+      }`}
+    >
+      <div
+        className="flex items-center space-x-2 cursor-pointer hover:scale-105 transition-transform duration-300"
+        onClick={() => navigate("/")}
+      >
+        {/* <img src={logo} alt="logo" className="ml-[7rem] w-10 h-10" /> */}
+        <span className="text-lg font-bold">Apna Hotel</span>
       </div>
 
-      {/* Navbar Links */}
       <div className="hidden md:flex space-x-6">
-        <a href="/" className="text-gray-600 hover:text-gray-900">
-          Home
-        </a>
-        <a href="#discover" className="text-gray-600 hover:text-gray-900">
-          Discover
-        </a>
-        <a href="#activities" className="text-gray-600 hover:text-gray-900">
-          Activities
-        </a>
-        <a href="#about" className="text-gray-600 hover:text-gray-900">
-          About
-        </a>
-        <a href="#contact" className="text-gray-600 hover:text-gray-900">
-          Contact
-        </a>
+        {[
+          { name: "Home", action: () => navigate("/") },
+          { name: "Discover", action: () => navigate("/discover") },
+          { name: "Activities", action: () => {} },
+          { name: "About", action: () => {} },
+          { name: "Contact", action: () => {} },
+        ].map((item, index) => (
+          <button
+            key={index}
+            onClick={item.action}
+            className="relative text-gray-600 hover:text-gray-900 transition-colors duration-300 after:content-[''] after:block after:h-[2px] after:bg-gray-900 after:w-0 hover:after:w-full after:transition-all after:duration-500"
+          >
+            {item.name}
+          </button>
+        ))}
       </div>
 
-      {/* Notification and Profile */}
-      <div className="flex items-center space-x-4 mr-[9rem] relative">
+      <div className="flex items-center space-x-4 relative">
         <IoIosHeartEmpty
           size={20}
-          className="cursor-pointer"
+          className="cursor-pointer hover:scale-110 transition-transform duration-300"
           onClick={() => navigate("/cart")}
         />
         <FaUser
-          className="cursor-pointer"
+          className="cursor-pointer hover:scale-110 transition-transform duration-300"
           size={20}
           onClick={handleDropdownToggle}
         />
         {isDropdownOpen && (
           <div
-            className="absolute right-0 mt-36 w-48 bg-white border border-gray-200 rounded shadow-lg z-50"
+            className="absolute right-0 mt-12 w-48 bg-white border border-gray-200 rounded shadow-lg z-50 transition-opacity duration-300 opacity-100"
             onMouseLeave={closeDropdown}
           >
             <ul>
@@ -113,6 +115,36 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      <div className="md:hidden flex items-center">
+        <button onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? (
+            <FaTimes size={24} className="hover:rotate-90 transition-transform duration-300" />
+          ) : (
+            <FaBars size={24} className="hover:rotate-90 transition-transform duration-300" />
+          )}
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 md:hidden transition-all duration-500">
+          {[
+            { name: "Home", action: () => navigate("/") },
+            { name: "Discover", action: () => navigate("/discover") },       // ✅ Fixed
+            { name: "Activities", action: () => {} },
+            { name: "About", action: () => {} },
+            { name: "Contact", action: () => {} },
+          ].map((item, index) => (
+            <button
+              key={index}
+              onClick={item.action}
+              className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
