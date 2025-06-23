@@ -23,7 +23,8 @@ import YourOrder from "./pages/YourOrder";
 import ThankYou from "./components/ThankYou";
 import SelectedCategory from "./pages/SelectedCategory";
 import ContributePost from "./pages/User/ContributePost";
-import Discover from "./components/Discover";  // ✅ Import Discover
+import Discover from "./components/Discover";
+import Activities from "./pages/Activities";
 
 function App() {
   return (
@@ -39,7 +40,8 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/category/:slug" element={<SelectedCategory />} />
-        <Route path="/discover" element={<Discover />} />  {/* ✅ Added Route */}
+        <Route path="/discover" element={<Discover />} /> 
+        <Route path="/activities" element={<Activities />} /> 
 
         <Route path="/user" element={<UserRoutes />}>
           <Route path="" element={<UserDashboard />} />

@@ -4,7 +4,7 @@ import logo from "../assets/logo (2).png";
 import { useAuth } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeartEmpty } from "react-icons/io";``
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -59,7 +59,7 @@ const Navbar = () => {
         {[
           { name: "Home", action: () => navigate("/") },
           { name: "Discover", action: () => navigate("/discover") },
-          { name: "Activities", action: () => {} },
+          { name: "Activities", action: () => navigate("/activities") },
           { name: "About", action: () => {} },
           { name: "Contact", action: () => {} },
         ].map((item, index) => (
@@ -130,8 +130,8 @@ const Navbar = () => {
         <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 md:hidden transition-all duration-500">
           {[
             { name: "Home", action: () => navigate("/") },
-            { name: "Discover", action: () => navigate("/discover") },       // ✅ Fixed
-            { name: "Activities", action: () => {} },
+            { name: "Discover", action: () => navigate("/discover") },       
+            { name: "Activities", action: () => navigate("/activities") },
             { name: "About", action: () => {} },
             { name: "Contact", action: () => {} },
           ].map((item, index) => (

@@ -1,164 +1,116 @@
-// Footer.js
-// import Image from "next/image";
-import logo from "../assets/logo (2).png";
+// main/client/src/components/Footer.jsx
+
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 py-10 ">
-      <h2 className="text-3xl font-semibold text-gray-900 mt-8 text-center">
-        Explore the world with My Dream place
-      </h2>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex mt-8">
-        <div className=" mb-10">
-          <div className="">
-            <img src={logo} alt="Logo" className="h-8 w-auto" />
-            <h1 className="text-2xl font-semibold text-gray-900">
+    <footer className="bg-gradient-to-br from-white to-blue-50 py-12 relative overflow-hidden z-10">
+      {/* Heading */}
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-2"
+      >
+        Explore the world with <span className="text-blue-600">Apna Hotel</span>
+      </motion.h2>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-center text-gray-600 text-lg mb-10"
+      >
+        Your next go-to companion for travel
+      </motion.p>
 
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between gap-12">
+          {/* Branding */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h1 className="text-4xl font-extrabold text-blue-600 leading-tight">
+              Apna <br /> Hotel
             </h1>
-          </div>
-          <p className="text-gray-600 mt-2">
-            Your next go-to companion for travel
-          </p>
+            <p className="mt-3 text-gray-500">
+              Your next go-to companion for travel
+            </p>
+          </motion.div>
+
+          {/* Links Grid */}
+          <motion.div
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+          >
+            {[
+              {
+                title: "Company",
+                links: ["About", "Jobs", "Newsroom", "Advertising", "Contact us"],
+              },
+              {
+                title: "Explore",
+                links: [
+                  "Australia",
+                  "New Zealand",
+                  "United States America (USA)",
+                  "Greece",
+                  "Maldives",
+                  "Singapore",
+                  "See more",
+                ],
+              },
+              {
+                title: "Terms and Policies",
+                links: [
+                  "Privacy Policy",
+                  "Terms of use",
+                  "Accessibility",
+                  "Reward system policy",
+                ],
+              },
+              {
+                title: "Help",
+                links: [
+                  "Support",
+                  "Cancel your bookings",
+                  "Use Coupon",
+                  "Refund Policies",
+                  "International Travel Documents",
+                ],
+              },
+            ].map((section, idx) => (
+              <div key={idx}>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 hover:text-blue-600 transition duration-300">
+                  {section.title}
+                </h3>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  {section.links.map((link, i) => (
+                    <li key={i}>
+                      <a
+                        href="#"
+                        className={`hover:text-blue-500 transition duration-300 ${
+                          link === "See more" ? "text-blue-600 underline" : ""
+                        }`}
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </motion.div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Company
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Jobs
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Newsroom
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Advertising
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Contact us
-                </a>
-              </li>
-            </ul>
-          </div>
 
-          {/* Explore Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Explore
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Australia
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  New Zealand
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  United States America (USA)
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Greece
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Maldives
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Singapore
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-blue-500 hover:underline">
-                  See more
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Terms and Policies Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Terms and Policies
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Terms of use
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Accessibility
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Reward system policy
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Help Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Help</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Support
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Cancel your bookings
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Use Coupon
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  Refund Policies
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  International Travel Documents
-                </a>
-              </li>
-            </ul>
-          </div>
+        {/* Divider */}
+        <div className="border-t border-gray-200 mt-12 pt-6 text-center text-sm text-gray-500">
+          © {new Date().getFullYear()} <span className="font-semibold">Apna Hotel</span>. All rights reserved.
         </div>
       </div>
     </footer>
